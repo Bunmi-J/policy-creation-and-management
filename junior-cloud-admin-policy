@@ -1,0 +1,55 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "UserManagement",
+            "Effect": "Allow",
+            "Action": [
+                "iam:CreateUser",
+                "iam:GetUser",
+                "iam:ListUsers",
+                "iam:ListGroupsForUser",
+                "iam:GetAccountPasswordPolicy",
+                "iam:ListAttachedUserPolicies",
+                "iam:ListUserPolicies"
+            ],
+            "Resource": "*"
+        },
+        {
+            "Sid": "PasswordManagement",
+            "Effect": "Allow",
+            "Action": [
+                "iam:CreateLoginProfile",
+                "iam:UpdateLoginProfile",
+                "iam:GetLoginProfile"
+            ],
+            "Resource": "arn:aws:iam::*:user/*"
+        },
+        {
+            "Sid": "DenyDeleteUsers",
+            "Effect": "Deny",
+            "Action": [
+                "iam:DeleteUser"
+            ],
+            "Resource": "*"
+        },
+        {
+            "Sid": "DenyDeletePolicies",
+            "Effect": "Deny",
+            "Action": [
+                "iam:DeletePolicy",
+                "iam:DeletePolicyVersion"
+            ],
+            "Resource": "*"
+        },
+        {
+            "Sid": "DenyAccessKeyCreation",
+            "Effect": "Deny",
+            "Action": [
+                "iam:CreateAccessKey",
+                "iam:UpdateAccessKey"
+            ],
+            "Resource": "*"
+        }
+    ]
+}
