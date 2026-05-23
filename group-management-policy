@@ -1,0 +1,62 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "GroupManagementPolicy",
+            "Effect": "Allow",
+            "Action": [
+                "iam:CreateGroup",
+                "iam:GetGroup",
+                "iam:ListGroups",
+                "iam:ListGroupsForUser",
+                "iam:AddUserToGroup",
+                "iam:ListUsers",
+                "iam:GetAccountPasswordPolicy",
+                "iam:RemoveUserFromGroup"
+            ],
+            "Resource": "*"
+        },
+        {
+            "Sid": "ViewingGroupInformation",
+            "Effect": "Allow",
+            "Action": [
+                "iam:ListPolicies",
+                "iam:GetPolicy",
+                "iam:GetPolicyVersion"
+            ],
+            "Resource": "*"
+        },
+        {
+            "Sid": "AttachPoliciesExceptAdmin",
+            "Effect": "Allow",
+            "Action": [
+                "iam:AttachGroupPolicy",
+                "iam:DetachGroupPolicy"
+            ],
+            "Resource": "arn:aws:iam::*:group/*"
+        },
+        {
+            "Sid": "DenyAdministratorPolicyAttachment",
+            "Effect": "Deny",
+            "Action": [
+                "iam:AttachGroupPolicy"
+            ],
+            "Resource": "arn:aws:iam::*:group/*",
+            "Condition": {
+                "StringEquals": {
+                    "iam:PolicyARN": [
+                        "arn:aws:iam::aws:policy/AdministratorAccess"
+                    ]
+                }
+            }
+        },
+        {
+            "Sid": "DenyDeleteGroups",
+            "Effect": "Deny",
+            "Action": [
+                "iam:DeleteGroup"
+            ],
+            "Resource": "*"
+        }
+    ]
+}
